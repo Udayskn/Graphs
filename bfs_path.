@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n,m;
+  cin>>n>>m;
+  map<string,bool> visited;
+  map<string,vector<pair<string,string>>>adj;
+  for(int i=0;i<m;i++){
+    string u,v,l;
+    cin>>u>>v>>l;
+    adj[u].emplace_back(v,l);
+  }
+  string p,r;
+  cin>>p>>r;
+  // cout<<1;
+  queue<string>q;
+  q.push(p);
+  visited[p]=1;
+  // int dist[n];
+  // dist[p]=0;
+  // path construction
+  map<string,pair<string,string>>parent;
+  parent[p]={"start","start"};
+  int count1=0,count2=0;
+  while(!q.empty()){
+    count1++;
+    string a=q.front();
+    q.pop();
+    for(auto v:adj[a]){
+      auto c=v.first;
+      auto d=v.second;
+      if(!visited[c]){
+        parent[c]={a,d};
+        visited[c]=1;
+        q.push(c);
+        // dist[c]=dist[a]+1;
+      }
+    }
+  }
+//   cout<<parent["xor-city"].first;
+  int count=0;
+  stack<string>path;
+  if(visited[r]){
+    while(parent[r].first!="start"){
+      count++;
+      path.push(parent[r].second);
+      r=parent[r].first;
+    }
+    cout<<count<<"\n";
+  }
+  else {
+    cout<<"Impossible";
+    return 0;
+  }
+  while(!path.empty()){
+    cout<<path.top()<<"\n";
+    path.pop();
+  }
+  return 0;
+
+}
