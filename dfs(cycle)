@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+bool dfs(int n,vector<vector<int>>&Graph,vector<int> &visited){
+  // int emp=0;
+  visited[n]=1;
+  for(auto x:Graph[n]){
+    if(visited[x]==0){
+      if(dfs(x,Graph,visited))return true;
+    }
+    else if(visited[x]==1){
+      return true;
+    }
+  }
+  visited[n]=2;
+  return false;
+}
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n,m;cin>>n>>m;
+  vector<vector<int>>Graph(n+1);
+  vector<int> visited(n+1,0);
+  // vector<int>empl(n+1);
+  for(int i=1;i<=m;i++){
+    int u,v;cin>>u>>v;
+    Graph[u].push_back(v);
+    //undirected
+    //Graph[v].push_back(u);
+  }
+  //when parent of a node is given.
+  // for(int i=2;i<=n;i++){
+  //   int k;cin>>k;
+  //   Graph[k].push_back(i);
+  // }
+  int nocycle=1;
+  for(int i=0;i<n;i++){
+    if(visited[i])continue;
+    if(dfs(i,Graph,visited)){
+      nocycle=0;break;
+    }
+  }
+  nocycle? cout<<"Yes":cout<<"No";
+  // for(int i=1;i<=n;i++)cout<<empl[i]<<" ";
+  return 0;
+
+}
