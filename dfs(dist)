@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int n,vector<vector<int>>&Graph,vector<bool> &visited,vector<int>&dist){
+  visited[n]=true;
+  for(auto x:Graph[n]){
+    if(!visited[x]){
+      dist[x]=dist[n]+1;
+    //   cout<<x<<" "<<n<<" "<<dist[x]<<"\n";
+      dfs(x,Graph,visited,dist);
+    }
+  }
+  return ;
+}
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n;cin>>n;
+  vector<vector<int>>Graph(n+1);
+  vector<bool> visited(n+1,false);
+   for(int i=1;i<n;i++){
+    int u,v;cin>>u>>v;
+    Graph[u].push_back(v);
+    // undirected
+    Graph[v].push_back(u);
+  }
+  vector<int>dist_1(n+1,0);
+//   cout<<1<<"\n";
+  dfs(1,Graph,visited,dist_1);
+  
+  return 0;
+
+}
