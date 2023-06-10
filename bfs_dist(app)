@@ -1,0 +1,3 @@
+# Graphs
+BFS
+cursed nodes: consider them already visited even before implementing bfs.
