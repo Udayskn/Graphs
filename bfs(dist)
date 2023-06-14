@@ -1,41 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int main() {
-  
- ios_base::sync_with_stdio(false);
-  cin.tie(NULL);
-  int n,m,a,b;
-  cin>>n>>m;
-  vector<vector<int>>adj(n+1);
-  for(int i=0;i<m;i++){
-    cin>>a>>b;
-    adj[a].push_back(b);
-    adj[b].push_back(a);
-  }
-  int p,r;
-  cin>>p>>r;
+vector<vector<int>>adj;
+void bfs(int p,vector<int>&dist){
+  int n=dist.size();
   vector<int>visited(n+1,0);
   queue<int>q;
   q.push(p);
   visited[p]=1;
-  vector<int>dist(n+1,INT_MAX);
   dist[p]=0;
   int count1=0,count2=0;
   while(!q.empty()){
     count1++;
-    a=q.front();
+    int a=q.front();
     q.pop();
     for(auto c:adj[a]){
       if(!visited[c]){
         visited[c]=1;
         q.push(c);
         dist[c]=dist[a]+1;
+        // cout<<p<<" "<<c<<" "<<dist[c]<<"\n";
       }
     }
   }
-  if(visited[r])cout<<dist[r];
-  else cout<<0;
+  return;
+}
+int main() {
+  
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  int n,m,a,b;
+  cin>>n>>m;
+  // vector<vector<int>>adj(n+1);
+  adj.resize(n+1);
+  for(int i=0;i<m;i++){
+    cin>>a>>b;
+    adj[a].push_back(b);
+    adj[b].push_back(a);
+  }
+  vector<int>dist_1(n+1,INT_MAX),dist_2(n+1,INT_MAX),dist_n(n+1,INT_MAX);
+  bfs(1,dist_1);bfs(2,dist_2),bfs(n,dist_n);
   return 0;
 
 }
