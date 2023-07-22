@@ -1,2 +1,4 @@
 Diameter: farthest node from any pt gives one of two diameter nodes
-          the other node is farhest pt from the the diameter node 1
+          the other node is farthest pt from the the diameter node 1
+
+Only for trees
