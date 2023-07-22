@@ -2,6 +2,7 @@
 using namespace std;
 bool dfs(int n,vector<vector<int>>&Graph,vector<int> &visited){
   // int emp=0;
+  // make current source grey i.e unfinished visited
   visited[n]=1;
   for(auto x:Graph[n]){
     if(visited[x]==0){
@@ -11,6 +12,7 @@ bool dfs(int n,vector<vector<int>>&Graph,vector<int> &visited){
       return true;
     }
   }
+  // make finished node black.
   visited[n]=2;
   return false;
 }
@@ -19,6 +21,7 @@ int main() {
   cin.tie(NULL);
   int n,m;cin>>n>>m;
   vector<vector<int>>Graph(n+1);
+  // all nodes are white 
   vector<int> visited(n+1,0);
   // vector<int>empl(n+1);
   for(int i=1;i<=m;i++){
