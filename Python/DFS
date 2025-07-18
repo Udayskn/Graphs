@@ -1,0 +1,28 @@
+def dfs(self,node,clonenode,visited):
+    visited[node.val] = clonenode
+    for nei in node.neighbors :
+        if visited[nei.val] :
+            clonenei = visited[nei.val]
+            print(clonenei.val)
+            if clonenei not in clonenode.neighbors :
+                clonenode.neighbors.append(clonenei)
+                clonenei.neighbors.append(clonenode)
+            continue
+        clonenei = Node(nei.val)
+        print(node.val,nei.val)
+        print(clonenode.val,clonenei.val)
+        clonenode.neighbors.append(clonenei)
+        clonenei.neighbors.append(clonenode)
+        self.dfs(nei,clonenei,visited)
+    
+    return clonenode
+
+
+def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+    visited = [None for _ in range(101)]
+    if not node :
+        return None
+    clonenode = Node(node.val)
+    self.dfs(node,clonenode,visited)
+    # print([nei.val for nei in clonenode.neighbors])
+    return clonenode
